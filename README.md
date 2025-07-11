@@ -44,14 +44,16 @@ Knowing the linguistic relationship helps in understanding why transfer learning
 │   ├── GeezSwitch-data/  # Raw dataset
 │   │   ├── train.tsv
 │   │   ├── dev.tsv
-│   │   └── test.tsv
+│   │   │   │   └── test.tsv
 │   └── geez_data.db      # (Created by ingest_data.py)
 ├── models/
 │   └── lid_model.joblib  # (Created by train_model.py)
+├── utils.py              # Shared utility functions for OCR
 ├── explore_data.py       # Utility to inspect the dataset
 ├── ingest_data.py        # Script to populate the SQLite database
 ├── ocr_setup.py          # Script to perform OCR on an image
 ├── train_model.py        # Script to train the language ID model
+├── predict_from_image.py # Script to run the full OCR -> LID pipeline
 ├── README.md             # This file
 ├── requirements.txt      # Project dependencies
 └── Dockerfile            # For containerized setup
