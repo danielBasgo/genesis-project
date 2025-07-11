@@ -1,0 +1,30 @@
+# --- Core Project Dependencies ---
+# For OCR, data handling, and machine learning.
+
+# Image processing and OCR
+opencv-python==4.9.0.80
+pytesseract==0.3.10
+
+# Data manipulation and numerical operations
+pandas==2.2.2
+numpy==1.26.4
+
+# Machine learning
+scikit-learn==1.4.2
+
+# Data visualization (for explore_data.py)
+matplotlib==3.8.4
+
+# --- Future Expansion: Document Handling ---
+# Uncomment the line below if you plan to process PDFs. PyMuPDF is a great choice.
+# PyMuPDF
+
+# --- Future Expansion: Web API ---
+# Uncomment if you build a web service (API) around your OCR function.
+# flask
+# fastapi
+# uvicorn
+
+# --- Future Expansion: Advanced NLP ---
+# Uncomment if you need to perform more advanced natural language processing.
+# spacy
