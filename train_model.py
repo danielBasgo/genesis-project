@@ -4,6 +4,7 @@ import os
 import joblib
 import subprocess
 import argparse
+import logging
 import sys
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
@@ -19,19 +20,19 @@ def load_data_from_db(db_path, table_name):
 def ensure_database_exists(db_path, project_dir):
     """Checks for the database and runs the ingestion script if it's missing."""
     if not os.path.exists(db_path):
-        print(f"\nError: Database not found at {db_path}.")
+        logging.warning(f"Database not found at {db_path}.")
         response = input("Would you like to run 'ingest_data.py' to create it now? (y/n): ")
         if response.lower() == 'y':
             ingest_script_path = os.path.join(project_dir, 'ingest_data.py')
             if not os.path.exists(ingest_script_path):
-                print(f"FATAL: 'ingest_data.py' not found at {ingest_script_path}. Cannot proceed.")
+                logging.critical(f"'ingest_data.py' not found at {ingest_script_path}. Cannot proceed.")
                 sys.exit(1)
 
-            print("\nRunning data ingestion script...")
+            logging.info("Running data ingestion script...")
             subprocess.run([sys.executable, ingest_script_path], check=True)
-            print("Data ingestion complete. Resuming model training...\n")
+            logging.info("Data ingestion complete. Resuming model training...")
         else:
-            print("Cannot proceed without the database. Exiting.")
+            logging.error("Cannot proceed without the database. Exiting.")
             sys.exit(0)
 
 def main(args):
@@ -46,13 +47,13 @@ def main(args):
     ensure_database_exists(db_path, project_dir)
 
     # 2. Load data (BUG FIX: This now runs after the check, not in an else block)
-    print("Loading training and testing data from the database...")
+    logging.info("Loading training and testing data from the database...")
     train_df = load_data_from_db(db_path, 'train')
     test_df = load_data_from_db(db_path, 'test')
 
     X_train, y_train = train_df['text'], train_df['language']
     X_test, y_test = test_df['text'], test_df['language']
-    print(f"Loaded {len(train_df)} training samples and {len(test_df)} testing samples.")
+    logging.info(f"Loaded {len(train_df)} training samples and {len(test_df)} testing samples.")
 
     # 3. Create a Model Pipeline
     # A pipeline bundles a vectorizer and a classifier. This is a best practice.
@@ -64,23 +65,23 @@ def main(args):
     ])
 
     # 4. Train the Model
-    print("\nTraining the language identification model...")
+    logging.info("Training the language identification model...")
     model_pipeline.fit(X_train, y_train)
-    print("Training complete.")
+    logging.info("Training complete.")
 
     # 5. Evaluate the Model
-    print("\nEvaluating the model on the test set...")
+    logging.info("Evaluating the model on the test set...")
     y_pred = model_pipeline.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     report = classification_report(y_test, y_pred)
-    print(f"\nModel Accuracy: {accuracy:.4f}")
-    print("\nClassification Report:")
-    print(report)
+    logging.info(f"Model Accuracy: {accuracy:.4f}")
+    # The classification report is multi-line, so we log it with a newline for readability.
+    logging.info(f"Classification Report:\n{report}")
 
     # 6. Save the Trained Model
     model_path = os.path.join(models_dir, args.output_filename)
     joblib.dump(model_pipeline, model_path)
-    print(f"\nModel pipeline saved to: {model_path}")
+    logging.info(f"Model pipeline saved to: {model_path}")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(

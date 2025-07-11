@@ -38,13 +38,13 @@ Knowing the linguistic relationship helps in understanding why transfer learning
 
 ## Project Structure
 
-```
+```text
 .
 ├── data/
 │   ├── GeezSwitch-data/  # Raw dataset
 │   │   ├── train.tsv
 │   │   ├── dev.tsv
-│   │   │   │   └── test.tsv
+│   │   └── train.tsv
 │   └── geez_data.db      # (Created by ingest_data.py)
 ├── models/
 │   └── lid_model.joblib  # (Created by train_model.py)
@@ -56,12 +56,22 @@ Knowing the linguistic relationship helps in understanding why transfer learning
 ├── predict_from_image.py # Script to run the full OCR -> LID pipeline
 ├── README.md             # This file
 ├── requirements.txt      # Project dependencies
+├── Dockerfile            # For containerized setup
+├── .gitignore            # Specifies untracked files to ignore
+└── .dockerignore         # Specifies files to exclude from Docker image
 └── Dockerfile            # For containerized setup
 ```
 
 ## Setup and Installation
 
-### 1. Prerequisites
+#### 1. Clone the Repository
+
+```sh
+git clone https://github.com/danielBasgo/genesis-project.git
+cd genesis-project
+```
+
+#### 2. Prerequisites
 
 You must have the **Tesseract OCR engine** installed on your system.
 
@@ -69,14 +79,7 @@ You must have the **Tesseract OCR engine** installed on your system.
 *   **macOS:** `brew install tesseract tesseract-lang`
 *   **Linux (Ubuntu/Debian):** `sudo apt-get install tesseract-ocr tesseract-ocr-all`
 
-### 2. Clone the Repository
-
-```sh
-git clone <your-repo-url>
-cd <your-repo-directory>
-```
-
-### 3. Set Up Python Environment
+#### 3. Set Up Python Environment
 
 It is highly recommended to use a virtual environment.
 
