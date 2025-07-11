@@ -3,6 +3,11 @@ import sys
 import shutil
 import cv2
 import pytesseract
+import logging
+
+# Configure logging for the utils module
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+
 
 def configure_tesseract():
     """

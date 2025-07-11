@@ -40,26 +40,29 @@ Knowing the linguistic relationship helps in understanding why transfer learning
 
 ```text
 .
+├── src/
+│   └── geez_toolkit/
+│       ├── __init__.py   # Makes it a package
+│       └── utils.py      # Your shared library code
 ├── data/
 │   ├── GeezSwitch-data/  # Raw dataset
-│   │   ├── train.tsv
 │   │   ├── dev.tsv
+│   │   ├── test.tsv
 │   │   └── train.tsv
 │   └── geez_data.db      # (Created by ingest_data.py)
 ├── models/
 │   └── lid_model.joblib  # (Created by train_model.py)
-├── utils.py              # Shared utility functions for OCR
-├── explore_data.py       # Utility to inspect the dataset
 ├── ingest_data.py        # Script to populate the SQLite database
 ├── ocr_setup.py          # Script to perform OCR on an image
 ├── train_model.py        # Script to train the language ID model
 ├── predict_from_image.py # Script to run the full OCR -> LID pipeline
+├── explore_data.py       # Utility to inspect the dataset
 ├── README.md             # This file
+├── pyproject.toml        # Project definition file
 ├── requirements.txt      # Project dependencies
 ├── Dockerfile            # For containerized setup
 ├── .gitignore            # Specifies untracked files to ignore
 └── .dockerignore         # Specifies files to exclude from Docker image
-└── Dockerfile            # For containerized setup
 ```
 
 ## Setup and Installation
@@ -67,8 +70,8 @@ Knowing the linguistic relationship helps in understanding why transfer learning
 #### 1. Clone the Repository
 
 ```sh
-git clone https://github.com/danielBasgo/genesis-project.git
-cd genesis-project
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
 ```
 
 #### 2. Prerequisites
