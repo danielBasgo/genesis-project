@@ -1,0 +1,25 @@
+# --- Python ---
+# Virtual environments
+/venv/
+/.venv/
+
+# Byte-compiled / optimized / C extensions
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Generated Data & Models ---
+# Ignore the SQLite database file, as it's generated from the source .tsv files.
+/data/geez_data.db
+
+# Ignore all trained models, as they are artifacts produced by the training script.
+/models/*.joblib
+
+# --- IDE / Editor ---
+# Ignore settings from common editors like VS Code and JetBrains IDEs.
+.vscode/
+.idea/
+
+# --- OS Specific ---
+# Ignore macOS system files.
+.DS_Store
